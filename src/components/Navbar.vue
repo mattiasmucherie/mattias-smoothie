@@ -2,8 +2,10 @@
   <nav>
     <v-toolbar flat app>
       <v-toolbar-title class="text-uppercase">
-        <span class="font-weight-light">Mattias</span>
-        <span>Smoothies</span>
+        <router-link class="toolbar-title" to="/">
+          <span class="font-weight-light">Mattias</span>
+          <span>Smoothies</span>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn flat to="/add-smoothie">
@@ -16,3 +18,10 @@
 <script>
 export default {};
 </script>
+<style scoped>
+.toolbar-title {
+  color: inherit;
+  text-decoration: inherit;
+}
+</style>
+

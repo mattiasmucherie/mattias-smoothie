@@ -14,10 +14,23 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn flat small color="grey" @click="deleteSmoothie(smoothie.id)">
-              <v-icon small left>delete</v-icon>
-              <span>Delete</span>
-            </v-btn>
+            <v-layout row justify-space-between wrap>
+              <v-btn
+                :loading="deleteLoading"
+                flat
+                small
+                color="grey"
+                @click="deleteSmoothie(smoothie.id)"
+              >
+                <v-icon small left>delete</v-icon>
+                <span>Delete</span>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn flat small color="grey" :to="`/edit-smoothie/${smoothie.slug}`">
+                <span>Edit</span>
+                <v-icon small right>edit</v-icon>
+              </v-btn>
+            </v-layout>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -30,10 +43,12 @@ import db from "@/firebase/init";
 
 export default {
   data: () => ({
-    smoothies: []
+    smoothies: [],
+    deleteLoading: false
   }),
   methods: {
     deleteSmoothie(id) {
+      this.deleteLoading = true;
       db.collection("smoothies")
         .doc(id)
         .delete()
@@ -41,6 +56,7 @@ export default {
           this.smoothies = this.smoothies.filter(smoothie => {
             return smoothie.id !== id;
           });
+          this.deleteLoading = false;
         });
     }
   },
